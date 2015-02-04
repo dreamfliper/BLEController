@@ -11,9 +11,9 @@
 #import "RBLControlViewController.h"
 #import "RBLDetailViewController.h"
 
-//@interface RBL_ServiceViewController ()
-//
-//@end
+@interface RBL_ServiceViewController ()
+
+@end
 
 @implementation RBL_ServiceViewController
 @synthesize ble;
@@ -27,7 +27,13 @@
     for (int i = 0; i<(256+512); i++){
         content[i] = i;
     }
-
+    
+    NSString *RSSInumber = [[NSString alloc] initWithFormat:@"NA"];
+    self.Rssi1.text = RSSInumber;
+    self.Rssi3.text = RSSInumber;
+    self.Rssi5.text = RSSInumber;
+    RssiCounter = 0;
+    tempRssi = 0;
     // Do any additional setup after loading the view.
 }
 
@@ -36,7 +42,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)Uploadbutton:(id)sender{
+//- (IBAction)Uploadbutton:(id)sender{
 //    char cData = 0x07;
 //    unsigned char content[256+512];
 //    unsigned char commandOne[20] = {0x06,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0,0,0,0,0,0,0,0,0,0,0}
@@ -59,42 +65,42 @@
 //    [ble readValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral];
 //    [ble notification:uuid_service characteristicUUID:uuid_char_noti p:ble.activePeripheral on:YES];
     
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-}
+//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+//}
 
-- (IBAction)SetpOnebutton:(id)sender{
-    unsigned char commandOne[20] = {0x06,0x01,0x02,0x03,0x04,0x05,0x06,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    NSData* nsData2=[NSData dataWithBytes:commandOne length:sizeof(commandOne)];
-    [ble writeValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral data:nsData2];
-    [ble notification:uuid_service characteristicUUID:uuid_char_noti p:ble.activePeripheral on:YES];
+//- (IBAction)SetpOnebutton:(id)sender{
+//    unsigned char commandOne[20] = {0x06,0x01,0x02,0x03,0x04,0x05,0x06,0,0,0,0,0,0,0,0,0,0,0,0,0};
+//    NSData* nsData2=[NSData dataWithBytes:commandOne length:sizeof(commandOne)];
+//    [ble writeValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral data:nsData2];
+//    [ble notification:uuid_service characteristicUUID:uuid_char_noti p:ble.activePeripheral on:YES];
+//
+//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+//}
+//
+//- (IBAction)SetpTwobutton:(id)sender{
+//    unsigned char commandTwo[20] = {0x00,0x00,0x00,0x03,0x00,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+//    NSData* nsData2=[NSData dataWithBytes:commandTwo length:sizeof(commandTwo)];
+//    [ble writeValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral data:nsData2];
+//    
+//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+//}
+//
+//- (IBAction)SetpThreebutton:(id)sender{
+//    unsigned char firstPayload[20] ;
+//    memcpy(firstPayload, content, 20);
+//    serialnumber = 1;
+//    NSData* nsData2=[NSData dataWithBytes:firstPayload length:sizeof(firstPayload)];
+//    [ble writeValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral data:nsData2];
+//    flag = YES;
+//    
+//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+//}
 
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)SetpTwobutton:(id)sender{
-    unsigned char commandTwo[20] = {0x00,0x00,0x00,0x03,0x00,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    NSData* nsData2=[NSData dataWithBytes:commandTwo length:sizeof(commandTwo)];
-    [ble writeValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral data:nsData2];
-    
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)SetpThreebutton:(id)sender{
-    unsigned char firstPayload[20] ;
-    memcpy(firstPayload, content, 20);
-    serialnumber = 1;
-    NSData* nsData2=[NSData dataWithBytes:firstPayload length:sizeof(firstPayload)];
-    [ble writeValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral data:nsData2];
-    flag = YES;
-    
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)ShowContentbutton:(id)sender{
-    
-    [ble readValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral];
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-}
+//- (IBAction)ShowContentbutton:(id)sender{
+//    
+//    [ble readValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral];
+//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+//}
 
 /*
 #pragma mark - Navigation
@@ -139,11 +145,39 @@
     }
 }
 
+-(void) bleDidUpdateRSSI:(NSNumber *) rssi;
+{
+    NSString *RSSInumber = [[NSString alloc] initWithFormat:@"%@",rssi];
+    NSLog(@"RSSI:%@",rssi);
+    self.Rssi1.text = RSSInumber;
+    RssiCounter++;
+    tempfortemp3 += [rssi intValue];
+    tempfortemp5 += [rssi intValue];
+
+    if (RssiCounter % 3 == 0)
+    {
+        tempRssi = [NSNumber numberWithInt:tempfortemp3 / 3];
+        self.Rssi3.text = [tempRssi stringValue];
+        tempfortemp3 =0;
+    }
+    
+    if (RssiCounter % 5 == 0)
+    {
+        tempRssi = [NSNumber numberWithInt:tempfortemp5 / 5];
+        self.Rssi5.text = [tempRssi stringValue];
+        tempfortemp5 =0;
+    }
+    
+    [ble readRSSI];
+}
 -(NSData *)charToNSData:(unsigned char *)tobeNSData
 {
     NSData* nsData1=[NSData dataWithBytes:tobeNSData length:sizeof(tobeNSData)];
     NSLog(@"%d,%@",tobeNSData[55],nsData1);
     return nsData1;
+}
+- (IBAction)ScanRssi:(id)sender {
+    [ble readRSSI];
 }
 
 @end

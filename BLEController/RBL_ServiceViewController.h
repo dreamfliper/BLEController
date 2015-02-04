@@ -22,11 +22,15 @@
     CBUUID *uuid_service;
     CBUUID *uuid_char;
     CBUUID *uuid_char_noti;
+    NSNumber *tempRssi;
     unsigned char content[256+512];
-    int serialnumber;
+    int serialnumber,RssiCounter,tempfortemp3,tempfortemp5;
     BOOL flag;
 }
 //- (void) didSelected:(NSInteger)selected;
+@property (weak, nonatomic) IBOutlet UILabel *Rssi5;
+@property (weak, nonatomic) IBOutlet UILabel *Rssi3;
+@property (weak, nonatomic) IBOutlet UILabel *Rssi1;
 
 @property (strong, nonatomic) BLE *ble;
 @property (nonatomic) NSData* BleToSCV;

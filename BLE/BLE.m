@@ -579,11 +579,11 @@ static int rssi = 0;
     if (!isConnected)
         return;
     
-    if (rssi != peripheral.RSSI.intValue)
-    {
-        rssi = peripheral.RSSI.intValue;
+//    if (rssi != peripheral.RSSI.intValue)
+//    {
+//        rssi = peripheral.RSSI.intValue;
         [[self delegate] bleDidUpdateRSSI:activePeripheral.RSSI];
-    }
+//    }
 }
 
 @end

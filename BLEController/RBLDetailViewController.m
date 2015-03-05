@@ -38,6 +38,10 @@
     [self.refreshControl addTarget:self action:@selector(ReScanbutton:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.refreshControl];
     self.BLEDevicesRssi = [NSMutableArray arrayWithArray:ble.peripheralsRssi];
+    for (int i = 0; i<10; i++) {
+        RSSiCounter[i]=0;
+        tempforp5c[i]=0;
+    }
 }
 
 -(void) connectionTimer:(NSTimer *)timer
@@ -58,6 +62,7 @@
             {
                 [self.BLEDevices insertObject:[self getUUIDString:p.UUID] atIndex:i];
                 [self.BLEDevicesRssi insertObject:n atIndex:i];
+                [RssiP5 insertObject:n  atIndex:i];
                 
                 if (name != nil)
                 {
@@ -72,6 +77,7 @@
             {
                 [self.BLEDevices insertObject:@"NULL" atIndex:i];
                 [self.BLEDevicesRssi insertObject:0 atIndex:i];
+                [RssiP5 insertObject:n  atIndex:i];
                 [self.BLEDevicesName insertObject:@"RedBear Device" atIndex:i];
             }
         }
@@ -105,10 +111,15 @@
             NSString *name = [[ble.peripherals objectAtIndex:i] name];
             
             if (p.UUID != NULL)
+            {
                 [self.BLEDevicesRssi insertObject:n atIndex:i];
-                
+                [RssiP5 insertObject:n  atIndex:i];
+            }
             else
+            {
                 [self.BLEDevicesRssi insertObject:0 atIndex:i];
+                [RssiP5 insertObject:n  atIndex:i];
+            }
         }
     }
     
@@ -169,16 +180,23 @@
     newFont = [UIFont fontWithName:@"Arial" size:11.0];
     cell.lblRssi.font = newFont;
     NSMutableString *rssiString = [NSMutableString stringWithFormat:@"RSSI : %@", [ble.peripheralsRssi objectAtIndex:indexPath.row]];
+    RSSiCounter[indexPath.row]++;
+    tempforp5c[indexPath.row] += [[ble.peripheralsRssi objectAtIndex:indexPath.row] intValue];
+    if (RSSiCounter[indexPath.row]/5 == 0) {
+        temprssi = [NSNumber numberWithInt:tempforp5c[indexPath.row] / 5];
+        cell.p5c.text = [temprssi stringValue];
+    }
     cell.lblRssi.text = rssiString;
-
-
-    
+  
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [ble connectPeripheral:[ble.peripherals objectAtIndex:indexPath.row]];
+    UUIDforNext = [ble.peripherals objectAtIndex:indexPath.row];
+    //NSLog(@"%@",UUIDforNext.identifier.UUIDString);
+    [self performSegueWithIdentifier:@"gotoService" sender:self];
 }
 
 -(NSString *)getUUIDString:(CFUUIDRef)ref
@@ -212,8 +230,11 @@
     {
         RBL_ServiceViewController *servicepage = [segue destinationViewController];
         servicepage.ble = ble;
+        servicepage.UUIDtemp = UUIDforNext.identifier.UUIDString;
+        //NSLog(@"%@,%@",UUIDforNext.identifier.UUIDString,servicepage.UUIDtemp);
     }
 }
+
 
 
 @end

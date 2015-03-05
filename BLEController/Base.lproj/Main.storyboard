@@ -105,6 +105,12 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="109" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="p5c" text="p5c:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y36-tH-Y09">
+                                            <rect key="frame" x="194" y="7" width="63" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -112,7 +118,7 @@
                                     <outlet property="lblName" destination="xdx-GR-i6P" id="KLJ-VG-y19"/>
                                     <outlet property="lblRssi" destination="bie-0c-j7D" id="Nlw-0r-ZYb"/>
                                     <outlet property="lblUuid" destination="Dh3-VC-dTj" id="zRu-fq-MIA"/>
-                                    <segue destination="Id8-D7-a86" kind="push" identifier="gotoService" id="UEk-eJ-rhh"/>
+                                    <outlet property="p5c" destination="y36-tH-Y09" id="Tx3-hd-zcN"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -121,25 +127,10 @@
                             <outlet property="delegate" destination="8do-TZ-cWd" id="atR-mS-XtT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="BLE Device" id="PGw-9c-B2i">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="nnf-kv-2nL">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" restorationIdentifier="Rescan" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BMV-03-sna">
-                                <rect key="frame" x="-23" y="-15" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="ReRSSI">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="ReRSSI:" destination="8do-TZ-cWd" eventType="touchUpInside" id="4Us-cU-rVL"/>
-                                    <action selector="ReScanbutton:" destination="8do-TZ-cWd" eventType="touchUpInside" id="r1W-WU-QtT"/>
-                                    <action selector="goBackButtPressed:" destination="8do-TZ-cWd" eventType="touchUpInside" id="yS9-ZD-ReS"/>
-                                </connections>
-                            </button>
-                            <connections>
-                                <action selector="ReScanbutton:" destination="8do-TZ-cWd" id="pLh-zt-M9J"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="BLE Device" id="PGw-9c-B2i"/>
+                    <connections>
+                        <segue destination="Id8-D7-a86" kind="push" identifier="gotoService" id="VFf-Nb-XJk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKQ-Hr-iV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -148,7 +139,6 @@
         <!--Service View Controller-->
         <scene sceneID="DWY-Hp-Y9X">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hrl-Z6-pNf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Id8-D7-a86" customClass="RBL_ServiceViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pRF-JL-RDJ"/>
@@ -176,27 +166,36 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="RSSip1" text="-86" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7l-Pc-cqH">
-                                <rect key="frame" x="211" y="104" width="26" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="RSSip1" text="-127" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7l-Pc-cqH">
+                                <rect key="frame" x="211" y="104" width="36" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="RSSip3" text="-86" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z8D-Dy-tFm">
-                                <rect key="frame" x="211" y="126" width="26" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="RSSip3" text="-127" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z8D-Dy-tFm">
+                                <rect key="frame" x="211" y="126" width="36" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="105" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="RSSip5" text="-86" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSq-Rq-A2a">
-                                <rect key="frame" x="211" y="149" width="26" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="105" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="RSSip5" text="-127" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSq-Rq-A2a">
+                                <rect key="frame" x="211" y="149" width="36" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NzZ-Ql-FmF">
+                                <rect key="frame" x="36" y="247" width="170" height="30"/>
+                                <state key="normal" title="Scan without connection">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="ScanWithoutConnection:" destination="Id8-D7-a86" eventType="touchUpInside" id="H6g-Yn-W2e"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fj-ss-f8X">
-                                <rect key="frame" x="89" y="213" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <rect key="frame" x="36" y="209" width="106" height="30"/>
+                                <state key="normal" title="Start ScanRSSi">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -213,6 +212,7 @@
                         <outlet property="Rssi5" destination="xSq-Rq-A2a" id="ugC-QD-zw2"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hrl-Z6-pNf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1185" y="333"/>
         </scene>

@@ -264,4 +264,9 @@ RBLControlViewController *cv;
     return [[NSString stringWithFormat:@"%@", str] substringWithRange:NSMakeRange(str.length - 36, 36)];
 }
 
+-(void) bleDidDiscover:(NSNumber *) RSSI UUID:(NSUUID *)UUID;
+{
+    NSLog(@"%@,%@",RSSI,UUID);
+}
+
 @end

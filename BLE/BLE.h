@@ -26,6 +26,7 @@
 -(void) bleDidReceiveData:(unsigned char *) data length:(int) length;
 -(void) bleDidWriteData;
 -(void) bleDidNotification;
+-(void) bleDidDiscover:(NSNumber *) rssi UUID:(NSUUID *)uuid;
 @required
 @end
 

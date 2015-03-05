@@ -16,7 +16,7 @@
 @end
 
 @implementation RBL_ServiceViewController
-@synthesize ble;
+@synthesize ble,UUIDtemp;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,6 +35,7 @@
     RssiCounter = 0;
     tempRssi = 0;
     // Do any additional setup after loading the view.
+    //NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%@",UUIDtemp);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,65 +43,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-//- (IBAction)Uploadbutton:(id)sender{
-//    char cData = 0x07;
-//    unsigned char content[256+512];
-//    unsigned char commandOne[20] = {0x06,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0,0,0,0,0,0,0,0,0,0,0}
-//                 ,commandTwo[20] = {0x00,0x03,0x00,0x00,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    
-//    for (int i = 0; i<256; i++)
-//        matadata[i] = i;
-//    
-//    for (int i = 0; i<512; i++)
-//        content[i] = i;
-
-//    NSLog(@"%d,%d",matadata[3],content[55]);
-//    NSData* nsData1=[NSData dataWithBytes:commandOne length:sizeof(commandOne)];
-//    
-//    NSData* nsData3=[NSData dataWithBytes:matadata length:sizeof(matadata)];
-//    NSData* nsData4=[NSData dataWithBytes:content length:sizeof(content)];
-//    nsData1 = [self charToNSData:matadata];
-//    NSLog(@"%@",nsData1);
-//    [ble writeValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral data:nsData1];
-//    [ble readValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral];
-//    [ble notification:uuid_service characteristicUUID:uuid_char_noti p:ble.activePeripheral on:YES];
-    
-//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-//}
-
-//- (IBAction)SetpOnebutton:(id)sender{
-//    unsigned char commandOne[20] = {0x06,0x01,0x02,0x03,0x04,0x05,0x06,0,0,0,0,0,0,0,0,0,0,0,0,0};
-//    NSData* nsData2=[NSData dataWithBytes:commandOne length:sizeof(commandOne)];
-//    [ble writeValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral data:nsData2];
-//    [ble notification:uuid_service characteristicUUID:uuid_char_noti p:ble.activePeripheral on:YES];
-//
-//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-//}
-//
-//- (IBAction)SetpTwobutton:(id)sender{
-//    unsigned char commandTwo[20] = {0x00,0x00,0x00,0x03,0x00,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-//    NSData* nsData2=[NSData dataWithBytes:commandTwo length:sizeof(commandTwo)];
-//    [ble writeValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral data:nsData2];
-//    
-//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-//}
-//
-//- (IBAction)SetpThreebutton:(id)sender{
-//    unsigned char firstPayload[20] ;
-//    memcpy(firstPayload, content, 20);
-//    serialnumber = 1;
-//    NSData* nsData2=[NSData dataWithBytes:firstPayload length:sizeof(firstPayload)];
-//    [ble writeValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral data:nsData2];
-//    flag = YES;
-//    
-//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-//}
-
-//- (IBAction)ShowContentbutton:(id)sender{
-//    
-//    [ble readValue:uuid_service characteristicUUID:uuid_char p:ble.activePeripheral];
-//    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-//}
 
 /*
 #pragma mark - Navigation
@@ -179,5 +121,62 @@
 - (IBAction)ScanRssi:(id)sender {
     [ble readRSSI];
 }
+- (IBAction)ScanWithoutConnection:(id)sender {
+//    UUIDtemp = ble.activePeripheral.identifier;
+    [ble.CM cancelPeripheralConnection:ble.activePeripheral];
+}
+-(void) bleDidDisconnect
+{
+    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(StartScanPeripheral) userInfo:nil repeats:NO];
+    NSLog(@"did disconnect enter");
+}
+-(void) bleDidDiscover:(NSNumber *) RSSI UUID:(NSUUID *)UUID;
+{
+    if ([UUIDtemp isEqualToString:UUID.UUIDString] == TRUE) {
+        NSString *RSSInumber = [[NSString alloc] initWithFormat:@"%@",RSSI];
+        NSLog(@"RSSI:%@",RSSI);
+        self.Rssi1.text = RSSInumber;
+        RssiCounter++;
+        tempfortemp3 += [RSSI intValue];
+        tempfortemp5 += [RSSI intValue];
+        
+        if (RssiCounter % 3 == 0)
+        {
+            tempRssi = [NSNumber numberWithInt:tempfortemp3 / 3];
+            self.Rssi3.text = [tempRssi stringValue];
+            tempfortemp3 =0;
+        }
+        
+        if (RssiCounter % 5 == 0)
+        {
+            tempRssi = [NSNumber numberWithInt:tempfortemp5 / 5];
+            self.Rssi5.text = [tempRssi stringValue];
+            tempfortemp5 =0;
+        }
+
+    }
+}
+
+- (void)StartScanPeripheral
+{
+    [ble.CM scanForPeripheralsWithServices:nil/*[NSArray arrayWithObject:[CBUUID UUIDWithString:@"FFF0"]]*/ options:nil];
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(StopScan) userInfo:nil repeats:NO];
+    NSLog(@"Enter Start Scan");
+}
+-(void)StopScan
+{
+    [ble.CM stopScan];
+    [self StartScanPeripheral];
+//    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(StartScanPeripheral) userInfo:nil repeats:NO];
+}
+
+- (BOOL) UUIDSAreEqual:(NSUUID *)UUID1 UUID2:(NSUUID *)UUID2
+{
+    if ([UUID1.UUIDString isEqualToString:UUID2.UUIDString])
+        return TRUE;
+    else
+        return FALSE;
+}
+
 
 @end

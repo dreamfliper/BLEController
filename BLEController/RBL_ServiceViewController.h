@@ -26,6 +26,7 @@
     unsigned char content[256+512];
     int serialnumber,RssiCounter,tempfortemp3,tempfortemp5;
     BOOL flag;
+    
 }
 //- (void) didSelected:(NSInteger)selected;
 @property (weak, nonatomic) IBOutlet UILabel *Rssi5;
@@ -36,6 +37,7 @@
 @property (nonatomic) NSData* BleToSCV;
 @property (nonatomic) id<RBL_ServiceViewController> ServiceView;
 @property (nonatomic,strong) UIRefreshControl *reflashControl;
+@property (nonatomic,strong) NSString *UUIDtemp;
 
 @end
 

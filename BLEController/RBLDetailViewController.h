@@ -14,6 +14,7 @@
 #import <UIKit/UIKit.h>
 #import "CellUuid.h"
 #import "BLE.h"
+#import "RBL_ServiceViewController.h"
 
 @protocol RBLDetailViewControllerDelegate <NSObject>
 
@@ -24,6 +25,10 @@
 @interface RBLDetailViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 {
     BOOL RSSIflag;
+    int RSSiCounter[10],tempforp5c[10];
+    NSMutableArray *RssiP5;
+    NSNumber *temprssi;
+    CBPeripheral *UUIDforNext;
 }
 
 @property (strong, nonatomic) BLE *ble;

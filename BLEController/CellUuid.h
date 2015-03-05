@@ -22,5 +22,6 @@
 @property (strong, nonatomic) UILabel *lblUuid;
 @property (strong, nonatomic) UILabel *lblRssi;
 @property (strong, nonatomic) UILabel *lblName;
+@property (strong, nonatomic) IBOutlet UILabel *p5c;
 
 @end

@@ -18,6 +18,7 @@
 		619B20B81A513A5800369E92 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 619B20B71A513A5800369E92 /* title.png */; };
 		619B20BE1A513C4E00369E92 /* RedBearLab.png in Resources */ = {isa = PBXBuildFile; fileRef = 619B20BD1A513C4E00369E92 /* RedBearLab.png */; };
 		61AB05F81A4A4CDE0060AB97 /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 61AB05F71A4A4CDE0060AB97 /* DebugLog.m */; };
+		61B84C681B325ACE00ABCE32 /* tempData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61B84C671B325ACE00ABCE32 /* tempData.plist */; };
 		61C6A82D1A57EE3900ED9B79 /* RBL_ServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C6A82C1A57EE3900ED9B79 /* RBL_ServiceViewController.m */; };
 		C27E829C1820DB490032D858 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E829B1820DB490032D858 /* Foundation.framework */; };
 		C27E829E1820DB490032D858 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27E829D1820DB490032D858 /* CoreGraphics.framework */; };
@@ -49,6 +50,7 @@
 		619B20BD1A513C4E00369E92 /* RedBearLab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedBearLab.png; sourceTree = "<group>"; };
 		61AB05F61A4A4CDE0060AB97 /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
 		61AB05F71A4A4CDE0060AB97 /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLog.m; sourceTree = "<group>"; };
+		61B84C671B325ACE00ABCE32 /* tempData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = tempData.plist; path = BLEController/tempData.plist; sourceTree = "<group>"; };
 		61C6A82B1A57EE3900ED9B79 /* RBL_ServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBL_ServiceViewController.h; sourceTree = "<group>"; };
 		61C6A82C1A57EE3900ED9B79 /* RBL_ServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBL_ServiceViewController.m; sourceTree = "<group>"; };
 		C27E82981820DB490032D858 /* BLEController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLEController.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +124,7 @@
 		C27E828F1820DB490032D858 = {
 			isa = PBXGroup;
 			children = (
+				61B84C671B325ACE00ABCE32 /* tempData.plist */,
 				61AB05F51A4A4CDE0060AB97 /* DebugLog */,
 				19E0A4561831FA480005D6EA /* Resources */,
 				C27E82A11820DB490032D858 /* BLEController */,
@@ -225,7 +228,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RBL;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = RedBearLab;
 				TargetAttributes = {
 					C27E82971820DB490032D858 = {
@@ -267,6 +270,7 @@
 				619B20BE1A513C4E00369E92 /* RedBearLab.png in Resources */,
 				C27E82AF1820DB490032D858 /* Main.storyboard in Resources */,
 				619B20B81A513A5800369E92 /* title.png in Resources */,
+				61B84C681B325ACE00ABCE32 /* tempData.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +321,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -327,13 +330,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -346,7 +355,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -356,7 +365,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -366,20 +374,25 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -393,7 +406,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BLEController/BLEController-Prefix.pch";
 				INFOPLIST_FILE = "BLEController/BLEController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.redbearlab.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -407,7 +421,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BLEController/BLEController-Prefix.pch";
 				INFOPLIST_FILE = "BLEController/BLEController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.redbearlab.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -92,6 +92,16 @@
     NSString *RSSInumber = [[NSString alloc] initWithFormat:@"%@",rssi];
     NSLog(@"RSSI:%@",rssi);
     self.Rssi1.text = RSSInumber;
+    if ([rssi intValue] > -60 ) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Bear"
+                                                       message:@"Bear One Stroy"
+                                                      delegate:self // 叫出AlertView之後，要給該ViewController去處理
+                                             cancelButtonTitle:@"OK"  //cancel按鈕文字的設定
+                                             otherButtonTitles: nil]; // 其他按鈕的設定
+        // otherButtonTitles: @"check1", @"check2", nil];
+        [alert show];  // 把alert這個物件秀出來;
+    }
+    
     RssiCounter++;
     tempfortemp3 += [rssi intValue];
     tempfortemp5 += [rssi intValue];
